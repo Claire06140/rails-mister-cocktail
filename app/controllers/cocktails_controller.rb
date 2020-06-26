@@ -3,6 +3,11 @@ class CocktailsController < ApplicationController
     @cocktails = Cocktail.all
   end
 
+  def show
+    @cocktail = Cocktail.find(params[:id])
+    @dose = Dose.new
+  end
+
   def new
     @cocktail = Cocktail.new # needed to instantiate the form_for
   end
@@ -17,13 +22,11 @@ class CocktailsController < ApplicationController
     redirect_to cocktail_path(@cocktail)
   end
 
-  def show
-    @cocktail = Cocktail.find(params[:id])
-  end
 
   private
 
   def cocktail_params
     params.require(:cocktail).permit(:name)
+  end
     # also need permit dose & INGREDIENTs, how to write it though ?
 end
